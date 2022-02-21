@@ -28,9 +28,32 @@ export function createPeriodTime(weather) {
     return createDOM(periodTimeTemplate(config))
 }
 
+export function showOtherSpecs(weather) {
+    const $periodTimeFirst = document.querySelector('.dayWeather-item')
+    const $hourSelected = document.querySelector('.hourSelected')
+    $periodTimeFirst.classList.add('is-selected')
+    $hourSelected.hidden = false
+    loadOtherSpecs(weather, 0)
+    const $periodTimeAll = document.querySelectorAll('.dayWeather-item')
+    $periodTimeAll.forEach((item, index) => {
+        item.addEventListener('click', () => handleShowSpecsClick(item, index, weather))
+    })
+}
+
 function handleShowSpecsClick($element, index, weather) {
     removeSelected()
     $element.classList.add('is-selected')
+    loadOtherSpecs(weather, index)
+}
+
+function removeSelected() {
+    const $periodTime = document.querySelectorAll('.dayWeather-item')
+    $periodTime.forEach(item => {
+        item.classList.remove('is-selected')
+    })
+}
+
+function loadOtherSpecs(weather, index) {
     const $max = document.querySelector('#max')
     const $min = document.querySelector('#min')
     const $wind = document.querySelector('#wind')
@@ -43,18 +66,4 @@ function handleShowSpecsClick($element, index, weather) {
     $min.textContent = min    
     $wind.textContent = wind
     $humidity.textContent = humidity
-}
-
-function removeSelected() {
-    const $periodTime = document.querySelectorAll('.dayWeather-item')
-    $periodTime.forEach(item => {
-        item.classList.remove('is-selected')
-    })
-}
-
-export function showOtherSpecs(weather) {
-    const $periodTime = document.querySelectorAll('.dayWeather-item')
-    $periodTime.forEach((item, index) => {
-        item.addEventListener('click', () => handleShowSpecsClick(item, index, weather))
-    })
 }

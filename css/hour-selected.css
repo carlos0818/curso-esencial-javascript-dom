@@ -5,7 +5,7 @@
     justify-content: space-between;
 }
 
-.hourSelected[none] {
+.hourSelected[hidden] {
     display: none;
   }
 

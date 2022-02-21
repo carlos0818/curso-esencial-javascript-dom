@@ -41,6 +41,7 @@ export default async function weeklyWeather() {
     const { lat, lng, isError } = await getLatLng()
     if(isError) return console.log('Ha ocurrido un error ubicándote')
     const { isError: weeklyWeatherError, data: weather } = await getWeeklyWeather(lat, lng)
+    console.log(weather)
     if(weeklyWeatherError) return console.log('Oh! Ha ocurrido un error trayendo el pronóstico del clima')
     const weekList = formatWeekList(weather.list)
     configWeeklyWeather(weekList)
